@@ -1,14 +1,14 @@
+from tkinter import Frame
 import cv2 as cv
 
 def detect_qr(frame):
     detectQR = cv.QRCodeDetector()
-    ret, _ = detectQR.detect(frame)
+    ret, points = detectQR.detect(frame)
+    return ret, points
 
-    return ret
-
-def read_qr(img):
+def read_qr(frame, points):
     detect = cv.QRCodeDetector()
-    value, points, _ = detect.detectAndDecode(img)
+    value, _ = detect.decode(frame, points)
 
     if value == '':
         return None
@@ -23,13 +23,14 @@ def main():
         if not ret:
             print("Can't receive frame (stream end?). Exiting ...")
             break
-
-        if detect_qr(frame):
-            qr_value = read_qr(frame)
+        ret, points = detect_qr(frame)
+        if ret:
+            qr_value = read_qr(frame, points)
 
             if qr_value is None: continue
             else: print(qr_value)
             break
+        
     vid.release()
 
 
