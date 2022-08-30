@@ -1,0 +1,2 @@
+## Introduction
+This is a script that is designed to detect a qr-code in front of the camera (webcam) and print what is contained. Specifically, it's usage is for a robot that is being built in the club I am a part of. A camera will move, and a qr-code will eventually come into the frame, and it needs to be detected and read.
